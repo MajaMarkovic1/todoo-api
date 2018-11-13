@@ -41,3 +41,5 @@ Route::group([
 
 });
 
+Route::resource('todos', 'TodoController');
+
