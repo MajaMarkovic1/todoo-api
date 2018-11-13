@@ -13,11 +13,15 @@ class CreateTodoTable extends Migration
      */
     public function up()
     {
-        Schema::create('todo', function (Blueprint $table) {
+        Schema::create('todos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('todo_item');
             $table->boolean('is_priority');
             $table->boolean('is_done');
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')
+                    ->references('id')->on('users')
+                    ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +33,6 @@ class CreateTodoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('todo');
+        Schema::dropIfExists('todos');
     }
 }
