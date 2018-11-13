@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Todo;
+use App\Http\Requests\StoreTodo;
 
 class TodoController extends Controller
 {
@@ -33,9 +35,9 @@ class TodoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTodo $request)
     {
-        return Todo::create($request->all());
+        return Todo::create($request->only(['todo_item', 'is_priority', 'is_done', 'user_id']));
     }
 
     /**
@@ -44,9 +46,9 @@ class TodoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Todo $todo)
     {
-        return Todo::findOrFail($id);
+        return $todo;
     }
 
     /**
@@ -67,10 +69,9 @@ class TodoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        $todo = Todo::findOrFail($id);
-        $todo->update($request->all());
+    public function update(StoreTodo $request, Todo $todo)
+    {      
+        $todo->update($request->only(['todo_item', 'is_priority', 'is_done']));
         return $todo;
     }
 
@@ -80,8 +81,9 @@ class TodoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Todo $todo)
     {
-        return Todo::destroy($id);
+        $todo->delete();
+        return $todo;
     }
 }

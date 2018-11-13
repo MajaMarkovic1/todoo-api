@@ -36,10 +36,22 @@ Route::group([
         Route::post('refresh', 'AuthController@refresh');
         Route::post('me', 'AuthController@me');
 
+        Route::group([
+            
+            'prefix' => 'todos'
+        
+        ], function($router) {
+
+            Route::get('', 'TodoController@index');
+            Route::get('{todo}', 'TodoController@show');
+            Route::post('', 'TodoController@store');
+            Route::put('{todo}', 'TodoController@update');
+            Route::delete('{todo}', 'TodoController@destroy');
+            
+        });
     });
   
 
 });
 
-Route::resource('todos', 'TodoController');
 
