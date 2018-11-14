@@ -19,15 +19,6 @@ class TodoController extends Controller
         return Todo::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -37,7 +28,13 @@ class TodoController extends Controller
      */
     public function store(StoreTodo $request)
     {
-        return Todo::create($request->only(['todo_item', 'is_priority', 'is_done', 'user_id']));
+        $data = $request->only(['todo_item', 'is_priority', 'is_done']);
+        return Todo::create([
+            'todo_item' => $data['todo_item'],
+            'is_priority' => $data['is_priority'],
+            'is_done' => $data['is_done'],
+            'user_id' => auth()->id()
+        ]);
     }
 
     /**
@@ -49,17 +46,6 @@ class TodoController extends Controller
     public function show(Todo $todo)
     {
         return $todo;
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**

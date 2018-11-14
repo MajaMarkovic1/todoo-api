@@ -45,8 +45,10 @@ Route::group([
             Route::get('', 'TodoController@index');
             Route::get('{todo}', 'TodoController@show');
             Route::post('', 'TodoController@store');
-            Route::put('{todo}', 'TodoController@update');
-            Route::delete('{todo}', 'TodoController@destroy');
+            Route::put('{todo}', 'TodoController@update')
+                ->middleware('can:update,todo');
+            Route::delete('{todo}', 'TodoController@destroy')
+                ->middleware('can:destroy,todo');
             
         });
     });
