@@ -53,4 +53,9 @@ class TodoPolicy
         return $this->isUserTheSame($user, $todo);
     }
 
+    public function show(User $user, Todo $todo)
+    {
+        return $this->isUserTheSame($user, $todo);
+    }
+
 }

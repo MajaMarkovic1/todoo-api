@@ -43,7 +43,8 @@ Route::group([
         ], function($router) {
 
             Route::get('', 'TodoController@index');
-            Route::get('{todo}', 'TodoController@show');
+            Route::get('{todo}', 'TodoController@show')
+                ->middleware('can:show,todo');
             Route::post('', 'TodoController@store');
             Route::put('{todo}', 'TodoController@update')
                 ->middleware('can:update,todo');
