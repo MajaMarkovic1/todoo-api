@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\User;
 
 class AuthController extends Controller
 {
@@ -46,6 +48,16 @@ class AuthController extends Controller
         return response()->json(['message' => 'Successfully logged out']);
     }
 
+    public function register(Request $request)
+    {
+        User::create([
+            'name' => $request['name'],            
+            'email' => $request['email'],
+            'password' => bcrypt($request['password']),
+            'remember_token' => str_random(10),
+        ]);
+
+    }
     /**
      * Refresh a token.
      *
