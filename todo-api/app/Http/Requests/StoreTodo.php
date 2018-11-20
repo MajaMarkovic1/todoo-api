@@ -24,7 +24,7 @@ class StoreTodo extends FormRequest
     public function rules()
     {
         return [
-            'todo_item' => 'required|unique:todos|max:255',
+            'todo_item' => 'required|max:255',
             'is_priority' => 'required',
             'is_done' => 'required'
         ];
