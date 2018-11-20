@@ -50,7 +50,7 @@ Route::group([
             Route::put('{todo}', 'TodoController@update')
                 ->middleware('can:update,todo');
             Route::delete('{todo}', 'TodoController@destroy')
-                ->middleware('can:destroy,todo');
+                ->middleware('can:delete,todo');
             
         });
     });
